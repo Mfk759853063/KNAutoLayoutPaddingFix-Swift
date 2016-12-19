@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="KNAutoLayoutPaddingFix" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xs1-fb-YNJ">
+                                <rect key="frame" x="33" y="141" width="310" height="21"/>
+                                <color key="backgroundColor" red="1" green="0.67315315768334805" blue="0.38782827687683574" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ipa-ez-4rX">
+                                <rect key="frame" x="32" y="188" width="310" height="21"/>
+                                <color key="backgroundColor" red="1" green="0.67315315769999995" blue="0.38782827689999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="3Eb-cl-l9U"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ado-jA-C5z">
+                                <rect key="frame" x="48" y="233" width="278" height="21"/>
+                                <color key="backgroundColor" red="1" green="0.67315315769999995" blue="0.38782827689999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="Vne-4G-v1i"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Xs1-fb-YNJ" secondAttribute="trailing" constant="32" id="7p2-FD-ZJI"/>
+                            <constraint firstItem="Ipa-ez-4rX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="32" id="AHk-Qh-wEQ"/>
+                            <constraint firstItem="Xs1-fb-YNJ" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="33" id="JcC-fO-Sak"/>
+                            <constraint firstItem="Ado-jA-C5z" firstAttribute="top" secondItem="Ipa-ez-4rX" secondAttribute="bottom" constant="24" id="Qw6-1Q-Jng"/>
+                            <constraint firstItem="Ipa-ez-4rX" firstAttribute="top" secondItem="Xs1-fb-YNJ" secondAttribute="bottom" constant="26" id="SGe-Ve-LK7"/>
+                            <constraint firstItem="Ado-jA-C5z" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="32" id="UKb-Qy-F3P"/>
+                            <constraint firstAttribute="trailing" secondItem="Ipa-ez-4rX" secondAttribute="trailing" constant="33" id="q10-sz-Y9i"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ado-jA-C5z" secondAttribute="trailing" constant="33" id="uIQ-fP-f0s"/>
+                            <constraint firstItem="Xs1-fb-YNJ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="121" id="uy0-Jh-Oqi"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="label1" destination="Xs1-fb-YNJ" id="grD-Ph-Apl"/>
+                        <outlet property="label2" destination="Ipa-ez-4rX" id="Yeq-oL-oLS"/>
+                        <outlet property="label2HeightConstraint" destination="3Eb-cl-l9U" id="DCS-cP-18W"/>
+                        <outlet property="label3" destination="Ado-jA-C5z" id="rRl-7u-f6c"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="268" y="121"/>
+        </scene>
+    </scenes>
+</document>
