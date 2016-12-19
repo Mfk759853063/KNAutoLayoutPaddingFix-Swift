@@ -10,8 +10,10 @@ import UIKit
 
 struct  KNAutoLayoutPaddingFixAxis : OptionSet{
     let rawValue: Int
-    static let KNAutoLayoutPaddingFixAxisHorizontal = KNAutoLayoutPaddingFixAxis(rawValue:1 << 0)
-    static let KNAutoLayoutPaddingFixAxisVertical = KNAutoLayoutPaddingFixAxis(rawValue:1 << 1)
+    static let KNAutoLayoutPaddingFixAxisTop = KNAutoLayoutPaddingFixAxis(rawValue:1 << 0)
+    static let KNAutoLayoutPaddingFixAxisLeft = KNAutoLayoutPaddingFixAxis(rawValue:1 << 1)
+    static let KNAutoLayoutPaddingFixAxisRight = KNAutoLayoutPaddingFixAxis(rawValue:1 << 2)
+    static let KNAutoLayoutPaddingFixAxisBottom = KNAutoLayoutPaddingFixAxis(rawValue:1 << 3)
 }
 
 private struct KNRestoreConstraintAssociateKey {
@@ -49,28 +51,45 @@ class KNAutoLayoutPaddingFix: NSObject {
         }
         view.restoreConstraints?.removeAllObjects()
         
-        if axis.contains(.KNAutoLayoutPaddingFixAxisVertical) {
+        if axis.contains(.KNAutoLayoutPaddingFixAxisTop) {
             let topConstraint = self.findTopConstraintWithView(view: view)
             guard topConstraint != nil else {
                 return
             }
-            var parms : [String:AnyObject] = [:]
-            parms[KNCONSTAINTKEY] = topConstraint
-            parms[KNCONSTANTKEY] = NSNumber(floatLiteral:Double((topConstraint?.constant)!)) as AnyObject
-            view.restoreConstraints?.add(parms)
-            topConstraint?.constant = 0
+            self.setView(view: view, constant: 0, constraint: topConstraint!)
         }
-        if axis.contains(.KNAutoLayoutPaddingFixAxisHorizontal) {
+        
+        if axis.contains(.KNAutoLayoutPaddingFixAxisLeft) {
             let leftConstraint = self.findLeftConstraintWithView(view: view)
             guard leftConstraint != nil else {
                 return
             }
-            var parms : [String:AnyObject] = [:]
-            parms[KNCONSTAINTKEY] = leftConstraint
-            parms[KNCONSTANTKEY] = NSNumber(floatLiteral:Double((leftConstraint?.constant)!)) as AnyObject
-            view.restoreConstraints?.add(parms)
-            leftConstraint?.constant = 0
+            self.setView(view: view, constant: 0, constraint: leftConstraint!)
         }
+        
+        if axis.contains(.KNAutoLayoutPaddingFixAxisRight) {
+            let rightConstraint = self.findRightConstraintWithView(view: view)
+            guard rightConstraint != nil else {
+                return
+            }
+            self.setView(view: view, constant: 0, constraint: rightConstraint!)
+        }
+        
+        if axis.contains(.KNAutoLayoutPaddingFixAxisBottom) {
+            let bottomConstraint = self.findBottomConstraintWithView(view: view)
+            guard bottomConstraint != nil else {
+                return
+            }
+            self.setView(view: view, constant: 0, constraint: bottomConstraint!)
+        }
+    }
+    
+    private class func setView(view: UIView, constant: CGFloat, constraint: NSLayoutConstraint) {
+        var parms : [String:AnyObject] = [:]
+        parms[KNCONSTAINTKEY] = constraint
+        parms[KNCONSTANTKEY] = NSNumber(floatLiteral:Double(constraint.constant)) as AnyObject
+        view.restoreConstraints?.add(parms)
+        constraint.constant = constant
     }
     
     public class func restoreViews(views:[UIView]) {
@@ -92,16 +111,15 @@ class KNAutoLayoutPaddingFix: NSObject {
         view.restoreConstraints?.removeAllObjects()
     }
     
-    
-    private class func findTopConstraintWithView(view:UIView) -> NSLayoutConstraint? {
+    private class func findView(view: UIView,attribute: NSLayoutAttribute) -> NSLayoutConstraint? {
         var constraint : NSLayoutConstraint?
         guard view.superview != nil else {
             return nil;
         }
         let superView   = view.superview!
         for c in superView.constraints {
-            if ((c.firstItem as? UIView == view && c.firstAttribute == .top) ||
-                (c.secondItem as? UIView == view && c.secondAttribute == .top)) {
+            if ((c.firstItem as? UIView == view && c.firstAttribute == attribute) ||
+                (c.secondItem as? UIView == view && c.secondAttribute == attribute)) {
                 constraint = c
                 break;
             }
@@ -109,19 +127,19 @@ class KNAutoLayoutPaddingFix: NSObject {
         return constraint
     }
     
+    private class func findTopConstraintWithView(view:UIView) -> NSLayoutConstraint? {
+        return self.findView(view: view, attribute: .top)
+    }
+    
     private class func findLeftConstraintWithView(view:UIView) -> NSLayoutConstraint? {
-        var constraint : NSLayoutConstraint?
-        guard view.superview != nil else {
-            return nil;
-        }
-        let superView   = view.superview!
-        for c in superView.constraints {
-            if ((c.firstItem as? UIView == view && c.firstAttribute == .leading) ||
-                (c.secondItem as? UIView == view && c.secondAttribute == .leading)) {
-                constraint = c
-                break;
-            }
-        }
-        return constraint
+        return self.findView(view: view, attribute: .leading)
+    }
+    
+    private class func findRightConstraintWithView(view:UIView) -> NSLayoutConstraint? {
+        return self.findView(view: view, attribute: .trailing)
+    }
+    
+    private class func findBottomConstraintWithView(view:UIView) -> NSLayoutConstraint? {
+        return self.findView(view: view, attribute: .bottom)
     }
 }

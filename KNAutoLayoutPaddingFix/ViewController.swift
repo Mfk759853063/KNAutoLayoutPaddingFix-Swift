@@ -22,7 +22,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
-            KNAutoLayoutPaddingFix.fixViews(views: [self.label2], axis: [.KNAutoLayoutPaddingFixAxisHorizontal,.KNAutoLayoutPaddingFixAxisVertical])
+            KNAutoLayoutPaddingFix.fixViews(views: [self.label2], axis: [.KNAutoLayoutPaddingFixAxisTop,.KNAutoLayoutPaddingFixAxisLeft])
             self.label2HeightConstraint.constant = 0
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+3, execute: { 
                 KNAutoLayoutPaddingFix.restoreViews(views: [self.label2])
